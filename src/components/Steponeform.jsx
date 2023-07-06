@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Stepone.css";
 const FormStep1 = ( {onNext}) => {
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
@@ -16,8 +17,8 @@ const FormStep1 = ( {onNext}) => {
     
   
     return (
-      <div>
-        <h2>Step 1</h2>
+      <div className="container">
+        <h2 className="h2">Step 1</h2>
         <label>Project Name:</label>
         <input type="text" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
         <label>Project Description:</label>

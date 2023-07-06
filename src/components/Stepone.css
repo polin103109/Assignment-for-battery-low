@@ -1,0 +1,32 @@
+*{
+    box-sizing:border-box;
+}
+.container{
+    background:#f2f2f2;
+    padding:20px;
+    border-radius:5px;
+   
+}
+input[type=text]{
+    width:50%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:4px;
+    margin-top:6px;
+    resize:vertical;
+    display: flex;
+    box-sizing:border-box;
+    margin-bottom:16px;
+
+}
+button{
+    background:#04AA6D;
+    padding:12px 20px;
+    border:none;
+    border-radius:4px;
+    cursor:pointer;
+    color:white;
+}
+button:hover{
+    background:#45a049;
+}
