@@ -1,55 +1,131 @@
-import React, { useState } from "react";
-const FormStep2 = ({data}) => {
-    const [file, setFile] = useState(null);
+import React, { useState } from 'react';
+import { parse } from 'papaparse';
+
+const FormStep2 = ({ values, onUpload, onBack }) => {
+  const [csvFile, setCsvFile] = useState(null);
   const [maxX, setMaxX] = useState('');
   const [minX, setMinX] = useState('');
   const [maxY, setMaxY] = useState('');
   const [minY, setMinY] = useState('');
   const [maxZ, setMaxZ] = useState('');
   const [minZ, setMinZ] = useState('');
-const handleFileUpload = (e) => {
-    const uploadedFile = e.target.files[0];
-    setFile(uploadedFile);
-    // Read the CSV file and extract values
+
+  const handleUpload = (event) => {
+    const file = event.target.files[0];
+    setCsvFile(file);
+
     const reader = new FileReader();
-    reader.onload = () => {
-      const csvData = reader.result;
-      // Parse and process the CSV data to get max/min values for X, Y, Z
-      // ...
-      // Set the calculated values
-      setMaxX(/* calculated maxX value */);
-      setMinX(/* calculated minX value */);
-      setMaxY(/* calculated maxY value */);
-      setMinY(/* calculated minY value */);
-      setMaxZ(/* calculated maxZ value */);
-      setMinZ(/* calculated minZ value */);
-    };
-    reader.readAsText(uploadedFile);
-}
+    reader.onload = handleFileRead;
+    reader.readAsText(file);
+  };
 
+  const handleFileRead = (event) => {
+    const csvData = event.target.result;
+    const parsedData = parse(csvData, { header: true });
 
+    if (parsedData && parsedData.data && parsedData.data.length > 0) {
+      const { data } = parsedData;
+      const maxX = Math.max(...data.map((row) => parseFloat(row.X)));
+      const minX = Math.min(...data.map((row) => parseFloat(row.X)));
+      const maxY = Math.max(...data.map((row) => parseFloat(row.Y)));
+      const minY = Math.min(...data.map((row) => parseFloat(row.Y)));
+      const maxZ = Math.max(...data.map((row) => parseFloat(row.Z)));
+      const minZ = Math.min(...data.map((row) => parseFloat(row.Z)));
 
-return (
-<div>
-<h2>Step 2</h2>
-<p>Project Name: {data.projectName}</p>
-<p>Project Description: {data.projectDescription}</p>
-<p>Client: {data.client}</p>
-<p>Contractor: {data.contractor}</p>
-<input type="file" accept=".csv" onChange={handleFileUpload} />
-<label>Max X:</label>
-<input type="number" value={maxX} onChange={(e) => setMaxX(e.target.value)} />
-<label>Min X:</label>
-<input type="number" value={minX} onChange={(e) => setMinX(e.target.value)} />
-<label>Max Y:</label>
-<input type="number" value={maxY} onChange={(e) => setMaxY(e.target.value)} />
-<label>Min Y:</label>
-<input type="number" value={minY} onChange={(e) => setMinY(e.target.value)} />
-<label>Max Z:</label>
-<input type="number" value={maxZ} onChange={(e) => setMaxZ(e.target.value)} />
-<label>Min Z:</label>
-<input type="number" value={minZ} onChange={(e) => setMinZ(e.target.value)} />
-   </div>
-    );
-}
+      setMaxX(maxX);
+      setMinX(minX);
+      setMaxY(maxY);
+      setMinY(minY);
+      setMaxZ(maxZ);
+      setMinZ(minZ);
+    }
+  };
+
+  const handleNext = () => {
+    onUpload({
+      ...values,
+      maxX,
+      minX,
+      maxY,
+      minY,
+      maxZ,
+      minZ,
+      csvFile,
+    });
+  };
+
+  const handleBack = () => {
+    onBack();
+  };
+
+  return (
+    <div>
+      <h2>Step 2: Upload CSV and Set Min/Max Values</h2>
+      <p>Project Name: {values.projectName}</p>
+      {/* Display the other input values from step one */}
+      <input type="file" onChange={handleUpload} />
+      <label>
+        Max X:
+        <input
+          type="number"
+          value={maxX}
+          onChange={(e) => setMaxX(e.target.value)}
+        />
+      </label>
+      <label>
+        Min X:
+        <input
+          type="number"
+          value={  minX}
+          onChange={(e) => setMinX(e.target.value)}
+        />
+      </label>
+      <label>
+        Max Y:
+        <input
+          type="number"
+          value={maxY}
+          onChange={(e) =>  setMaxY(e.target.value)}
+        />
+      </label>
+      <label>
+      Min Y:
+        <input
+          type="number"
+          value={ minY}
+          onChange={(e) =>  setMinY(e.target.value)}
+        />
+      </label>
+      <label>
+      Min Y:
+        <input
+          type="number"
+          value={ minY}
+          onChange={(e) =>  setMinY(e.target.value)}
+        />
+      </label>
+      <label>
+      Max Z:
+        <input
+          type="number"
+          value={ maxZ}
+          onChange={(e) =>  setMaxZ(e.target.value)}
+        />
+      </label>
+      <label>
+      Min Z:
+        <input
+          type="number"
+          value={  minZ}
+          onChange={(e) =>  setMinZ(e.target.value)}
+        />
+      </label>
+
+      {/* Add similar input fields for Min X, Max Y, Min Y, Max Z, and Min Z */}
+      <button onClick={handleNext}>Next</button>
+      <button onClick={handleBack}>Back</button>
+    </div>
+  );
+};
+
 export default FormStep2;
