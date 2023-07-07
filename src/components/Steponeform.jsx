@@ -5,7 +5,8 @@ const FormStep1 = ( {onNext}) => {
     const [projectDescription, setProjectDescription] = useState('');
     const [client, setClient] = useState('');
     const [contractor, setContractor] = useState('');
-    const handleNext = () => {
+    const handleNext = (event) => {
+        event.preventDefault();
         onNext({
           projectName,
           projectDescription,
@@ -20,13 +21,13 @@ const FormStep1 = ( {onNext}) => {
       <div className="container">
         <h2 className="h2">Step 1</h2>
         <label>Project Name:</label>
-        <input type="text" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
+        <input type="text" value={projectName} onChange={(e) => setProjectName(e.target.value)}  required/>
         <label>Project Description:</label>
-        <input type="text" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} />
+        <input type="text" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)}  required />
         <label>Client:</label>
-        <input type="text" value={client} onChange={(e) => setClient(e.target.value)} />
+        <input type="text" value={client} onChange={(e) => setClient(e.target.value)}  required/>
         <label>Contractor:</label>
-        <input type="text" value={contractor} onChange={(e) => setContractor(e.target.value)} />
+        <input type="text" value={contractor} onChange={(e) => setContractor(e.target.value)}  required />
         <button onClick={handleNext}>Next</button>
       </div>
     );

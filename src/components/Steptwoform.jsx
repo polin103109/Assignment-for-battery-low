@@ -69,9 +69,24 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
   return (
     <div>
       <h2>Step 2: Additional Details and File Upload</h2>
-      {/* Display input values from Step 1 */}
-      {/* <p>Project Name: {formData.projectName}</p> */}
-      {/* Repeat the above pattern for other input values */}
+      <label>
+        Project Name:
+        <input type="text" value={values.projectName} disabled />
+      </label>
+      <label>
+        Project Description:
+        <input type="text" value={values.projectDescription} disabled />
+      </label>
+      <label>
+        Client:
+        <input type="text" value={values.client} disabled />
+      </label>
+      <label>
+        Contractor:
+        <input type="text" value={values.contractor} disabled />
+      </label>
+   
+      
       <input type="file" onChange={handleFileUpload} />
       <label>
       Max X:
