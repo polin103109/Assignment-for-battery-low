@@ -18,7 +18,39 @@ const ResultPage = ({ values }) => {
           </tr>
           <tr>
             <td>Project Description</td>
-            <td>{values.projectName}</td>
+            <td>{values.projectDescription}</td>
+          </tr>
+          <tr>
+            <td>Client</td>
+            <td>{values.client}</td>
+          </tr>
+          <tr>
+            <td>Contractor</td>
+            <td>{values.contractor}</td>
+          </tr>
+          <tr>
+            <td> Max X:</td>
+            <td>{values.maxX}</td>
+          </tr>
+          <tr>
+            <td>Min X:</td>
+            <td>{values.minX}</td>
+          </tr>
+          <tr>
+            <td>Max Y:</td>
+            <td>{values.maxY}</td>
+          </tr>
+          <tr>
+            <td>Min Y:</td>
+            <td>{values.minY}</td>
+          </tr>
+          <tr>
+            <td>Max Z:</td>
+            <td>{values.maxZ}</td>
+          </tr>
+          <tr>
+            <td>Min Z:</td>
+            <td>{values.minZ}</td>
           </tr>
           {/* Display the other input values */}
         </tbody>

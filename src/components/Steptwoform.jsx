@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { parse } from 'papaparse';
+import  React, { useState } from 'react';
 
-const FormStep2 = ({ values, onUpload, onBack }) => {
-  const [csvFile, setCsvFile] = useState(null);
+const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
+  const [csvData, setCsvData] = useState(null); // Store the CSV data
   const [maxX, setMaxX] = useState('');
   const [minX, setMinX] = useState('');
   const [maxY, setMaxY] = useState('');
@@ -10,37 +9,46 @@ const FormStep2 = ({ values, onUpload, onBack }) => {
   const [maxZ, setMaxZ] = useState('');
   const [minZ, setMinZ] = useState('');
 
-  const handleUpload = (event) => {
-    const file = event.target.files[0];
-    setCsvFile(file);
 
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
     const reader = new FileReader();
-    reader.onload = handleFileRead;
+
+    reader.onload = (event) => {
+      const csvText = event.target.result;
+      setCsvData(csvText);
+      const lines = csvText.split('\n');
+      const columnXValues = lines
+        .slice(1) // Skip header row
+        .map((line) => line.split(',')[1]) // Assuming X values are in the second column (index 1)
+        .filter((x) => !isNaN(x)) // Filter out non-numeric values
+        .map(parseFloat);
+        const columnYValues = lines
+        .slice(1) 
+        .map((line) => line.split(',')[2]) 
+        .filter((y) => !isNaN(y)) 
+        .map(parseFloat);
+        const columnZValues = lines
+        .slice(1) 
+        .map((line) => line.split(',')[3]) 
+        .filter((z) => !isNaN(z)) 
+        .map(parseFloat);
+      const maxXValue = Math.max(...columnXValues);
+      const minXValue = Math.min(...columnXValues);
+      const maxYValue = Math.max(...columnYValues);
+      const minYValue = Math.min(...columnYValues);
+      const maxZValue = Math.max(...columnZValues);
+      const minZValue = Math.min(...columnZValues);
+      setMaxX(maxXValue);
+      setMinX(minXValue);
+      setMaxY(maxYValue);
+      setMinY(minYValue);
+      setMaxZ(maxZValue);
+      setMinZ(minZValue);
+    };
+
     reader.readAsText(file);
   };
-
-  const handleFileRead = (event) => {
-    const csvData = event.target.result;
-    const parsedData = parse(csvData, { header: true });
-
-    if (parsedData && parsedData.data && parsedData.data.length > 0) {
-      const { data } = parsedData;
-      const maxX = Math.max(...data.map((row) => parseFloat(row.X)));
-      const minX = Math.min(...data.map((row) => parseFloat(row.X)));
-      const maxY = Math.max(...data.map((row) => parseFloat(row.Y)));
-      const minY = Math.min(...data.map((row) => parseFloat(row.Y)));
-      const maxZ = Math.max(...data.map((row) => parseFloat(row.Z)));
-      const minZ = Math.min(...data.map((row) => parseFloat(row.Z)));
-
-      setMaxX(maxX);
-      setMinX(minX);
-      setMaxY(maxY);
-      setMinY(minY);
-      setMaxZ(maxZ);
-      setMinZ(minZ);
-    }
-  };
-
   const handleNext = () => {
     onUpload({
       ...values,
@@ -50,7 +58,7 @@ const FormStep2 = ({ values, onUpload, onBack }) => {
       minY,
       maxZ,
       minZ,
-      csvFile,
+      csvData,
     });
   };
 
@@ -60,70 +68,56 @@ const FormStep2 = ({ values, onUpload, onBack }) => {
 
   return (
     <div>
-      <h2>Step 2: Upload CSV and Set Min/Max Values</h2>
-      <p>Project Name: {values.projectName}</p>
-      {/* Display the other input values from step one */}
-      <input type="file" onChange={handleUpload} />
+      <h2>Step 2: Additional Details and File Upload</h2>
+      {/* Display input values from Step 1 */}
+      {/* <p>Project Name: {formData.projectName}</p> */}
+      {/* Repeat the above pattern for other input values */}
+      <input type="file" onChange={handleFileUpload} />
       <label>
-        Max X:
+      Max X:
         <input
           type="number"
           value={maxX}
-          onChange={(e) => setMaxX(e.target.value)}
         />
       </label>
       <label>
-        Min X:
+      Min X:
         <input
           type="number"
-          value={  minX}
-          onChange={(e) => setMinX(e.target.value)}
+          value={minX}
         />
       </label>
       <label>
-        Max Y:
+      Max Y:
         <input
           type="number"
           value={maxY}
-          onChange={(e) =>  setMaxY(e.target.value)}
         />
       </label>
       <label>
       Min Y:
         <input
           type="number"
-          value={ minY}
-          onChange={(e) =>  setMinY(e.target.value)}
+          value={minY}
         />
       </label>
       <label>
-      Min Y:
+      Max Z :
         <input
           type="number"
-          value={ minY}
-          onChange={(e) =>  setMinY(e.target.value)}
+          value={maxZ}
         />
       </label>
       <label>
-      Max Z:
+      Min Z :
         <input
           type="number"
-          value={ maxZ}
-          onChange={(e) =>  setMaxZ(e.target.value)}
+          value={minZ}
         />
       </label>
-      <label>
-      Min Z:
-        <input
-          type="number"
-          value={  minZ}
-          onChange={(e) =>  setMinZ(e.target.value)}
-        />
-      </label>
-
-      {/* Add similar input fields for Min X, Max Y, Min Y, Max Z, and Min Z */}
       <button onClick={handleNext}>Next</button>
       <button onClick={handleBack}>Back</button>
+   
     </div>
   );
 };
