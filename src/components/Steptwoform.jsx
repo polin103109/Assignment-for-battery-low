@@ -1,4 +1,5 @@
 import  React, { useState } from 'react';
+import "./steptwoform.css";
 
 const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
   const [csvData, setCsvData] = useState(null); // Store the CSV data
@@ -68,7 +69,9 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
 
   return (
     <div>
-      <h2>Step 2: Additional Details and File Upload</h2>
+       <h2>Step 2: Additional Details and File Upload</h2>
+    <div className="container">
+     <h2>Form One</h2>
       <label>
         Project Name:
         <input type="text" value={values.projectName} disabled />
@@ -85,9 +88,11 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
         Contractor:
         <input type="text" value={values.contractor} disabled />
       </label>
+      </div>
+      <div className="container">
    
-      
-      <input type="file" onChange={handleFileUpload} />
+      <h2>Form Two</h2>
+      <input type="file" onChange={handleFileUpload} className="file"/>
       <label>
       Max X:
         <input
@@ -133,6 +138,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
       <button onClick={handleNext}>Next</button>
       <button onClick={handleBack}>Back</button>
    
+    </div>
     </div>
   );
 };
