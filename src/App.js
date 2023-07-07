@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import jsPDF from "jspdf";
 import "./App.css";
-import Formstep1 from "./components/Steponeform.jsx";
-import FormStep2 from "./components/Steptwoform.jsx";
-import ResultPage from "./components/Resultpage.jsx";
+import Formstep1 from "./components/step1/Steponeform.jsx";
+import FormStep2 from "./components/step2/Steptwoform.jsx";
+import ResultPage from "./components/result/Resultpage.jsx";
 
 // import { saveAs } from "file-saver";
 
@@ -53,7 +53,9 @@ const App = () => {
         <>
           <ResultPage values={formData} />
           {!pdfGenerated && (
-            <button onClick={handleGeneratePDF}>Download as PDF</button>
+            <button className="btn" onClick={handleGeneratePDF}>
+              Download as PDF
+            </button>
           )}
         </>
       )}

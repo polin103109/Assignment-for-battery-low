@@ -98,6 +98,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
         <input
           type="number"
           value={maxX}
+          onChange={(e) => setMaxX(e.target.value)}
         />
       </label>
       <label>
@@ -105,6 +106,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
         <input
           type="number"
           value={minX}
+          onChange={(e) => setMinX(e.target.value)}
         />
       </label>
       <label>
@@ -112,6 +114,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
         <input
           type="number"
           value={maxY}
+          onChange={(e) => setMaxY(e.target.value)}
         />
       </label>
       <label>
@@ -119,6 +122,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
         <input
           type="number"
           value={minY}
+          onChange={(e) => setMinY(e.target.value)}
         />
       </label>
       <label>
@@ -126,6 +130,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
         <input
           type="number"
           value={maxZ}
+          onChange={(e) => setMaxZ(e.target.value)}
         />
       </label>
       <label>
@@ -133,6 +138,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
         <input
           type="number"
           value={minZ}
+          onChange={(e) => setMinZ(e.target.value)}
         />
       </label>
       <button onClick={handleNext}>Next</button>

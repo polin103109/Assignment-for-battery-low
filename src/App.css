@@ -1,4 +1,4 @@
-button{
+.btn{
     background:#04AA6D;
     padding:30px;
     border:none;
@@ -8,6 +8,6 @@ button{
     margin:10px;
     width:300px;
 }
-button:hover{
+.btn:hover{
     background:#45a049;
 }
