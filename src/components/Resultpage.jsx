@@ -1,9 +1,11 @@
 import React from 'react';
+import "./result.css";
 
 const ResultPage = ({ values }) => {
   return (
-    <div>
+    <div className="tableDiv">
       <h2>Result Page</h2>
+      <h1>Table Result</h1>
       <table>
         <thead>
           <tr>
@@ -52,7 +54,7 @@ const ResultPage = ({ values }) => {
             <td>Min Z:</td>
             <td>{values.minZ}</td>
           </tr>
-          {/* Display the other input values */}
+         
         </tbody>
       </table>
     </div>
