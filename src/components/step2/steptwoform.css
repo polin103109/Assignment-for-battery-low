@@ -1,43 +1,7 @@
-/* *{
+{
     box-sizing:border-box;
 }
-.container{
-    background:#FFC;
-    padding:20px;
-    border-radius:5px;
-    flex-direction:column;
-    display:flex;
-    margin:50px;
-   
-}
-input[type=text]{
-    width:50%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:4px;
-    margin-top:6px;
-    resize:vertical;
-    display: flex;
-    box-sizing:border-box;
-    margin-bottom:16px;
 
-}
-button{
-    background:#1c2b35;;
-    padding:12px 20px;
-    border:none;
-    border-radius:4px;
-    cursor:pointer;
-    color:white;
-    width:100px;
-    text-align:center;
-}
-button:hover{
-    background:#45a049;
-}
-.file{
-    padding:20px;
-} */
 .container {
     margin: 20px;
     justify-content:center;
