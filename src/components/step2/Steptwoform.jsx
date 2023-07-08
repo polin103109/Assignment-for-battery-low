@@ -9,6 +9,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
   const [minY, setMinY] = useState('');
   const [maxZ, setMaxZ] = useState('');
   const [minZ, setMinZ] = useState('');
+ 
 
 
   const handleFileUpload = (e) => {
@@ -50,7 +51,20 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
 
     reader.readAsText(file);
   };
-  const handleNext = () => {
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (
+      String(maxX).trim() === '' ||
+     String(minX).trim() === '' ||
+     String(maxY).trim() === '' ||
+     String(minY).trim() === '' ||
+     String(maxZ).trim() === '' ||
+     String(minZ).trim() === ''
+    ) {
+      return; // Return early if any field is empty
+    }
+  
+   
     onUpload({
       ...values,
       maxX,
@@ -61,10 +75,10 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
       minZ,
       csvData,
     });
-  };
+  }
 
   const handleBack = () => {
-    onBack(values);
+    onBack();
   };
 
   return (
