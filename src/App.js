@@ -10,7 +10,7 @@ import ResultPage from "./components/result/Resultpage.jsx";
 const App = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
-  const [pdfGenerated, setPdfGenerated] = useState(false);
+  // const [pdfGenerated, setPdfGenerated] = useState(false);
 
   const handleNextStep = (data) => {
     setFormData(data);
@@ -36,7 +36,7 @@ const App = () => {
     doc.text(`Min Z: ${formData.minZ}`, 10, 100);
 
     doc.save("result.pdf");
-    setPdfGenerated(true);
+    // setPdfGenerated(true);
   };
 
   return (
@@ -52,11 +52,9 @@ const App = () => {
       {step === 3 && (
         <>
           <ResultPage values={formData} />
-          {!pdfGenerated && (
-            <button className="btn" onClick={handleGeneratePDF}>
-              Download as PDF
-            </button>
-          )}
+          <button className="btn" onClick={handleGeneratePDF}>
+            Download as PDF
+          </button>
         </>
       )}
     </div>

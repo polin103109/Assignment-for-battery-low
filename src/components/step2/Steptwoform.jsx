@@ -64,7 +64,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
   };
 
   const handleBack = () => {
-    onBack();
+    onBack(values);
   };
 
   return (
@@ -89,7 +89,7 @@ const FormStep2 = ({ formData, handleChange,values, onUpload,onBack }) => {
         <input type="text" value={values.contractor} disabled />
       </label>
       </div>
-      <div className="container">
+      <div className="containerSecond">
    
       <h2>Form Two</h2>
       <input type="file" onChange={handleFileUpload} className="file"/>
